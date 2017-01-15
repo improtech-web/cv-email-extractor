@@ -1,0 +1,36 @@
+#!/bin/bash
+
+
+# EMAIL CV Extractor !
+
+# Run this program into a folder which contain
+# The documents
+# Allowed extension .pdf & .doc*
+# For further information read README file
+
+echo "--- Email CV Extractor! ---"
+echo "Description: Extract email text from pdf & doc files"
+
+read -p "Are you sure to run it ? [type y or n] " -n 1 -r
+echo    # (optional) move to a new line
+
+
+
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+	# Clearing the files
+	rm Email/emails.txt
+	# Parsing DOC files
+	for x in $( ls ../CvEmailExtractor/CVs/ | grep .doc* ); do
+		echo "# Working on file: " $x "..."
+		# Change the grep Email with RegEx
+		docx= python ../Dependecies/python-docx2txt/python-docx2txt/docx2txt/docx2txt.py ../CvEmailExtractor/CVs/$x |  grep -E -o "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b" >> Email/emails.txt
+	done
+
+	# Parsing PDF files
+	for i in $( ls ../CvEmailExtractor/CVs/ | grep .pdf); do
+		echo "# Working on file: " $i "..."
+		txt= pdf2txt.py ../CvEmailExtractor/CVs/$i | grep -E -o "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b" >> Email/emails.txt
+	done
+
+	echo " --- All emails was written in emails.txt...Done! --- "
+fi
