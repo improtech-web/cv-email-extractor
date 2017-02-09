@@ -4,6 +4,8 @@ Developed by improtech.it
 url: http://www.improtech.it
 mail: info.improtech@gmail.com
 
+# CURRENTLY IN MAINTENANCE 
+
 # DESCRIPTION
 This program extract  all the email addresses from the pdf and doc files
 
